@@ -1,0 +1,13 @@
+{
+  "name": "webman-tech/laravel-validation",
+  "type": "library",
+  "license": "MIT",
+  "description": "Webman plugin webman-tech/laravel-validation",
+  "require": {
+  },
+  "autoload": {
+    "psr-4": {
+      "WebmanTech\\LaravelValidation\\": "src"
+    }
+  }
+}
