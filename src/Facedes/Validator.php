@@ -1,0 +1,64 @@
+<?php
+
+namespace WebmanTech\LaravelValidation\Facedes;
+
+use Illuminate\Contracts\Translation\Translator;
+use Illuminate\Contracts\Validation\Factory as FactoryContract;
+use Illuminate\Validation\Factory;
+
+/**
+ * @method static \Illuminate\Contracts\Validation\Validator make(array $data, array $rules, array $messages = [], array $customAttributes = [])
+ * @method static void excludeUnvalidatedArrayKeys()
+ * @method static void extend(string $rule, \Closure|string $extension, string $message = null)
+ * @method static void extendImplicit(string $rule, \Closure|string $extension, string $message = null)
+ * @method static void replacer(string $rule, \Closure|string $replacer)
+ * @method static array validate(array $data, array $rules, array $messages = [], array $customAttributes = [])
+ *
+ * @see \Illuminate\Validation\Factory
+ * @see \Illuminate\Support\Facades\Validator
+ */
+class Validator
+{
+    /**
+     * @var null|FactoryContract
+     */
+    protected static $_instance = null;
+    /**
+     * @var null|Translator
+     */
+    protected static $_translator = null;
+
+    public static function instance(): FactoryContract
+    {
+        if (!static::$_instance) {
+            static::$_instance = static::createFactory();
+        }
+        return static::$_instance;
+    }
+
+    protected static function createFactory(): FactoryContract
+    {
+        return new Factory(static::getTranslator());
+    }
+
+    protected static function getTranslator(): Translator
+    {
+        if (!static::$_translator) {
+            $translator = config('plugin.webman-tech.laravel-validation.app.translation');
+            if ($translator instanceof \Closure) {
+                static::$_translator = call_user_func($translator);
+            }
+        }
+        return static::$_translator;
+    }
+
+    /**
+     * @param $name
+     * @param $arguments
+     * @return mixed
+     */
+    public static function __callStatic($name, $arguments)
+    {
+        return static::instance()->{$name}(... $arguments);
+    }
+}
