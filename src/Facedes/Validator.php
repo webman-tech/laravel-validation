@@ -31,7 +31,12 @@ class Validator
     public static function instance(): FactoryContract
     {
         if (!static::$_instance) {
-            static::$_instance = static::createFactory();
+            $factory = static::createFactory();
+            $extends = config('plugin.webman-tech.laravel-validation.app.extends');
+            if ($extends instanceof \Closure) {
+                call_user_func($extends, $factory);
+            }
+            static::$_instance = $factory;
         }
         return static::$_instance;
     }

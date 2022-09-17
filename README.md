@@ -114,3 +114,10 @@ class FooController
 }
 ```
 
+### 自定义验证规则
+
+在 `config/plugin/webman-tech/laravel-validation/app.php` 的 `extends` 字段中配置即可
+
+配置形式同 Laravel
+
+> 目前暂未提供 make:rule 的 command，需要自己写 Rule 类
