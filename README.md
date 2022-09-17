@@ -1,6 +1,6 @@
 # webman-tech/laravel-validation
 
-Laravel [illuminate/validation]((https://packagist.org/packages/illuminate/validation)) for webman
+Laravel [illuminate/validation](https://packagist.org/packages/illuminate/validation) for webman
 
 ## 介绍
 
