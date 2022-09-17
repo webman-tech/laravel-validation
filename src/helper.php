@@ -1,6 +1,6 @@
 <?php
 
-use WebmanTech\LaravelValidation\Facedes\Validator;
+use WebmanTech\LaravelValidation\Facades\Validator;
 
 if (!function_exists('validator')) {
     /**

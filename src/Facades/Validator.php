@@ -1,6 +1,6 @@
 <?php
 
-namespace WebmanTech\LaravelValidation\Facedes;
+namespace WebmanTech\LaravelValidation\Facades;
 
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Contracts\Validation\Factory as FactoryContract;
