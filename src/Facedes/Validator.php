@@ -46,8 +46,9 @@ class Validator
         if (!static::$_translator) {
             $translator = config('plugin.webman-tech.laravel-validation.app.translation');
             if ($translator instanceof \Closure) {
-                static::$_translator = call_user_func($translator);
+                $translator = call_user_func($translator);
             }
+            static::$_translator = $translator;
         }
         return static::$_translator;
     }

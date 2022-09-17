@@ -21,6 +21,96 @@ composer require webman-tech/laravel-validation
 
 所有 API 同 laravel，以下仅对有些特殊的操作做说明
 
-### $request->validate
+常规使用如下：
+
+```php
+<?php
+namespace app\controller;
+
+use support\Request;
+
+class FooController
+{
+    public function bar(Request $request) 
+    {
+        $validator = valiator($request->post(), [
+            'title' => 'required|unique:posts|max:255',
+            'body' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return json($validator->errors->first());
+        }
+        return json('ok');
+    }
+}
+```
 
 ### file/mimeType 相关的 rule
+
+由于 laravel 的 validation 验证 file/image 等文件时（包括文件 mimeType）时，都是使用的 Symfony 的 UploadedFile，而 webman 里 `$request->file()` 得到的是 `Webman\UploadFile`，
+因此无法直接使用相关的 rules
+
+需要使用 [`webman-tech/polyfill`](https://github.com/webman-tech/polyfill) 来支持
+
+安装
+
+```bash
+composer require webman-tech/polyfill illuminate/http
+```
+
+使用
+
+```php
+<?php
+namespace app\controller;
+
+use support\Request;
+use WebmanTech\Polyfill\LaravelRequest;
+
+class FooController
+{
+    public function bar(Request $request) 
+    {
+        $validator = valiator(LaravelRequest::wrapper($request)->all(), [
+           'file' => 'required|file|image',
+        ]);
+        if ($validator->fails()) {
+            return json($validator->errors->first());
+        }
+        return json('ok');
+    }
+}
+```
+
+### $request->validate
+
+需要使用 [`webman-tech/polyfill`](https://github.com/webman-tech/polyfill) 来支持
+
+安装
+
+```bash
+composer require webman-tech/polyfill illuminate/http
+```
+
+使用
+
+```bash
+<?php
+namespace app\controller;
+
+use support\Request;
+use WebmanTech\Polyfill\LaravelRequest;
+
+class FooController
+{
+    public function bar(Request $request) 
+    {
+        LaravelRequest::wrapper($request)->validate([
+            'file' => 'required|file|image',
+        ]);
+        
+        return json('ok');
+    }
+}
+```
+
