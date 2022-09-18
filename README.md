@@ -14,9 +14,6 @@ Laravel [illuminate/validation](https://packagist.org/packages/illuminate/valida
 composer require webman-tech/laravel-validation
 ```
 
-> `illuminate/validation` 依赖 `illuminate/translation` 的实现，因此需要配置 `Translator` 实例，
-在 `config/plugin/webman-tech/laravel-validation/app.php` 中配置
-
 ## 使用
 
 所有 API 同 laravel，以下仅对有些特殊的操作做说明

@@ -13,7 +13,8 @@
   },
   "require": {
     "php": ">=7.2",
-    "illuminate/validation": ">=8"
+    "illuminate/validation": ">=8",
+    "webman-tech/laravel-translation": "^1.0"
   },
   "require-dev": {
     "workerman/webman-framework": "^1.4"

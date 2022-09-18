@@ -10,6 +10,8 @@ class Install
      */
     protected static $pathRelation = array (
   'config/plugin/webman-tech/laravel-validation' => 'config/plugin/webman-tech/laravel-validation',
+  'resource/translations/en/validation.php' => 'resource/translations/en/validation.php',
+  'resource/translations/zh_CN/validation.php' => 'resource/translations/zh_CN/validation.php',
 );
 
     /**
