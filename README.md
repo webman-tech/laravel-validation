@@ -4,7 +4,7 @@ Laravel [illuminate/validation](https://packagist.org/packages/illuminate/valida
 
 ## 介绍
 
-站在巨人（laravel）的肩膀上使文件存储使用更加*可靠*和*便捷*
+站在巨人（laravel）的肩膀上使验证器使用更加*可靠*和*便捷*
 
 所有方法和配置与 laravel 几乎一模一样，因此使用方式完全参考 [Laravel文档](http://laravel.p2hp.com/cndocs/8.x/validation) 即可
 
