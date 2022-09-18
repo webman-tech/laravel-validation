@@ -4,7 +4,7 @@ namespace WebmanTech\LaravelValidation\Facades;
 
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Contracts\Validation\Factory as FactoryContract;
-use Illuminate\Validation\Factory;
+use WebmanTech\LaravelValidation\Factory;
 
 /**
  * @method static \Illuminate\Contracts\Validation\Validator make(array $data, array $rules, array $messages = [], array $customAttributes = [])

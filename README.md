@@ -118,3 +118,11 @@ class FooController
 配置形式同 Laravel
 
 > 目前暂未提供 make:rule 的 command，需要自己写 Rule 类
+
+### 手动切换 locale
+
+因为没有 Laravel App 的存在，所以不能通过 `App::setLocale()` 和 `App::currentLocale()` 来切换验证器的语言
+
+且由于 webman 建议的多语言是使用的 `symfony/translation`，并且全局 `locale` 函数也是使用其实现的
+
+因此本扩展基于此原因，已经做到了根据 `locale()` 自动切换 `validator()` 下使用的语言包，无需开发手动设置
