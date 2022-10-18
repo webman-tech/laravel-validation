@@ -126,3 +126,11 @@ class FooController
 且由于 webman 建议的多语言是使用的 `symfony/translation`，并且全局 `locale` 函数也是使用其实现的
 
 因此本扩展基于此原因，已经做到了根据 `locale()` 自动切换 `validator()` 下使用的语言包，无需开发手动设置
+
+### unique 验证器
+
+unique 依赖数据库，本扩展对已经安装 `illuminate/database` 了 webman 应用自动支持
+
+如果不支持，比如报错：`Presence verifier has not been set.` 时，请手动安装 `illuminate/database`
+
+> 原则上不一定强依赖于 Laravel 的 database， TP 的应该也是可以的（实现 DatabasePresenceVerifierInterface），目前暂未实现，欢迎PR

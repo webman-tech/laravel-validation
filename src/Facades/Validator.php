@@ -4,6 +4,9 @@ namespace WebmanTech\LaravelValidation\Facades;
 
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Contracts\Validation\Factory as FactoryContract;
+use Illuminate\Validation\DatabasePresenceVerifier;
+use Illuminate\Validation\DatabasePresenceVerifierInterface;
+use WebmanTech\LaravelValidation\Database\LaravelDb;
 use WebmanTech\LaravelValidation\Factory;
 
 /**
@@ -43,7 +46,19 @@ class Validator
 
     protected static function createFactory(): FactoryContract
     {
-        return new Factory(static::getTranslator());
+        $factory = new Factory(static::getTranslator());
+        if ($dbPresence = static::createDatabasePresenceVerifier()) {
+            $factory->setPresenceVerifier($dbPresence);
+        }
+        return $factory;
+    }
+
+    protected static function createDatabasePresenceVerifier(): ?DatabasePresenceVerifierInterface
+    {
+        if (class_exists('Illuminate\Database\Capsule\Manager')) {
+            return new DatabasePresenceVerifier(LaravelDb::getManagerInstance()->getDatabaseManager());
+        }
+        return null;
     }
 
     protected static function getTranslator(): Translator
