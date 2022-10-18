@@ -119,7 +119,23 @@ class FooController
 
 > 目前暂未提供 make:rule 的 command，需要自己写 Rule 类
 
-### 手动切换 locale
+### locale 本地化翻译需求
+
+#### 支持本地化
+
+需要使用 [`webman-tech/laravel-translation`](https://github.com/webman-tech/laravel-translation) 来支持
+
+安装
+
+```bash
+composer require webman-tech/laravel-translation
+```
+
+你也可以自行实现验证错误消息的本地化实现
+
+通过修改 `config/plugin/webman-tech/laravel-validation/app.php` 的 `translation` 提供一个 `Illuminate\Contracts\Translation\Translator` 来实现
+
+#### 切换 locale
 
 因为没有 Laravel App 的存在，所以不能通过 `App::setLocale()` 和 `App::currentLocale()` 来切换验证器的语言
 

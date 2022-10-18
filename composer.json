@@ -13,12 +13,12 @@
   },
   "require": {
     "php": ">=7.2",
-    "illuminate/validation": ">=8",
-    "webman-tech/laravel-translation": "^1.0"
+    "illuminate/validation": ">=8"
   },
   "require-dev": {
     "illuminate/database": "^8.83",
     "symfony/translation": "^5.4",
+    "webman-tech/laravel-translation": "^1.0",
     "workerman/webman-framework": "^1.4"
   },
   "config": {

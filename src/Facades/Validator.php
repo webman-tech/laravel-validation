@@ -8,6 +8,7 @@ use Illuminate\Validation\DatabasePresenceVerifier;
 use Illuminate\Validation\DatabasePresenceVerifierInterface;
 use WebmanTech\LaravelValidation\Database\LaravelDb;
 use WebmanTech\LaravelValidation\Factory;
+use WebmanTech\LaravelValidation\Translation\NullTranslator;
 
 /**
  * @method static \Illuminate\Contracts\Validation\Validator make(array $data, array $rules, array $messages = [], array $customAttributes = [])
@@ -68,6 +69,15 @@ class Validator
             if ($translator instanceof \Closure) {
                 $translator = call_user_func($translator);
             }
+            if (!$translator) {
+                $translator = (function (): Translator {
+                    if (class_exists('WebmanTech\LaravelTranslation\Facades\Translator')) {
+                        return \WebmanTech\LaravelTranslation\Facades\Translator::instance();
+                    }
+                    return new NullTranslator();
+                })();
+            }
+
             static::$_translator = $translator;
         }
         return static::$_translator;

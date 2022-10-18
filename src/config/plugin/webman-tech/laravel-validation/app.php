@@ -8,8 +8,8 @@ return [
     /**
      * translation 实例
      */
-    'translation' => function (): Translator {
-        return \WebmanTech\LaravelTranslation\Facades\Translator::instance();
+    'translation' => function (): ?Translator {
+        return null;
     },
     /**
      * 扩展自定义验证规则
