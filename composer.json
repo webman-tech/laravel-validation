@@ -13,7 +13,7 @@
   },
   "require": {
     "php": ">=7.2",
-    "illuminate/validation": ">=8"
+    "illuminate/validation": ">=5.8"
   },
   "require-dev": {
     "illuminate/database": "^8.83",
