@@ -13,10 +13,9 @@
   },
   "require": {
     "php": ">=7.2",
-    "illuminate/validation": ">=5.8"
+    "illuminate/validation": "^7.0|^8.0|^9.0"
   },
   "require-dev": {
-    "illuminate/database": "^8.83",
     "symfony/translation": "^5.4",
     "webman-tech/laravel-translation": "^1.0",
     "workerman/webman-framework": "^1.4"
