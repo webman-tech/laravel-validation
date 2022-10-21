@@ -16,6 +16,7 @@
     "illuminate/validation": "^7.0|^8.0|^9.0"
   },
   "require-dev": {
+    "illuminate/database": "^7.30",
     "symfony/translation": "^5.4",
     "webman-tech/laravel-translation": "^1.0",
     "workerman/webman-framework": "^1.4"
