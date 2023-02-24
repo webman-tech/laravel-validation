@@ -30,12 +30,12 @@ class FooController
 {
     public function bar(Request $request) 
     {
-        $validator = valiator($request->post(), [
+        $validator = validator($request->post(), [
             'title' => 'required|unique:posts|max:255',
             'body' => 'required',
         ]);
         if ($validator->fails()) {
-            return json($validator->errors->first());
+            return json($validator->errors()->first());
         }
         return json('ok');
     }
@@ -68,11 +68,11 @@ class FooController
 {
     public function bar(Request $request) 
     {
-        $validator = valiator(LaravelRequest::wrapper($request)->all(), [
+        $validator = validator(LaravelRequest::wrapper($request)->all(), [
            'file' => 'required|file|image',
         ]);
         if ($validator->fails()) {
-            return json($validator->errors->first());
+            return json($validator->errors()->first());
         }
         return json('ok');
     }
