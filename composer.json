@@ -3,6 +3,17 @@
   "type": "library",
   "license": "MIT",
   "description": "Webman plugin webman-tech/laravel-validation",
+  "require": {
+    "php": ">=7.3",
+    "illuminate/validation": ">=8.0"
+  },
+  "require-dev": {
+    "illuminate/database": ">=8.0",
+    "phpunit/phpunit": "^9",
+    "symfony/translation": ">=5.0",
+    "webman-tech/laravel-translation": "^1.0",
+    "workerman/webman-framework": "^1.4"
+  },
   "autoload": {
     "psr-4": {
       "WebmanTech\\LaravelValidation\\": "src"
@@ -11,17 +22,15 @@
       "src/helper.php"
     ]
   },
-  "require": {
-    "php": ">=7.2",
-    "illuminate/validation": "^7.0|^8.0|^9.0"
-  },
-  "require-dev": {
-    "illuminate/database": "^7.30",
-    "symfony/translation": "^5.4",
-    "webman-tech/laravel-translation": "^1.0",
-    "workerman/webman-framework": "^1.4"
+  "autoload-dev": {
+    "psr-4": {
+      "WebmanTech\\LaravelValidation\\Tests\\": "tests"
+    }
   },
   "config": {
     "sort-packages": true
+  },
+  "scripts": {
+    "test": "phpunit --testdox --no-interaction"
   }
 }

@@ -56,7 +56,7 @@ class Validator
 
     protected static function createDatabasePresenceVerifier(): ?DatabasePresenceVerifierInterface
     {
-        if (class_exists('Illuminate\Database\Capsule\Manager')) {
+        if (class_exists('Illuminate\Database\Capsule\Manager') && LaravelDb::getManagerInstance()) {
             return new DatabasePresenceVerifier(LaravelDb::getManagerInstance()->getDatabaseManager());
         }
         return null;
