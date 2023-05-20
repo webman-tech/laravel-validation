@@ -9,7 +9,7 @@
   },
   "require-dev": {
     "illuminate/database": ">=7.0",
-    "phpunit/phpunit": "^9",
+    "phpunit/phpunit": "^8|^9",
     "symfony/translation": ">=5.0",
     "webman-tech/laravel-translation": "^1.0",
     "workerman/webman-framework": "^1.4"
