@@ -4,11 +4,11 @@
   "license": "MIT",
   "description": "Webman plugin webman-tech/laravel-validation",
   "require": {
-    "php": ">=7.3",
-    "illuminate/validation": ">=8.0"
+    "php": ">=7.2",
+    "illuminate/validation": ">=7.0"
   },
   "require-dev": {
-    "illuminate/database": ">=8.0",
+    "illuminate/database": ">=7.0",
     "phpunit/phpunit": "^9",
     "symfony/translation": ">=5.0",
     "webman-tech/laravel-translation": "^1.0",
