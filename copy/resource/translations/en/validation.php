@@ -1,6 +1,6 @@
 <?php
 /**
- * @see https://raw.githubusercontent.com/laravel/framework/refs/heads/11.x/src/Illuminate/Translation/lang/en/validation.php
+ * @link https://raw.githubusercontent.com/laravel/framework/refs/heads/11.x/src/Illuminate/Translation/lang/en/validation.php
  */
 
 return [

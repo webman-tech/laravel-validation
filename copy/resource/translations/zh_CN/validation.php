@@ -1,6 +1,6 @@
 <?php
 /**
- * @see https://raw.githubusercontent.com/Laravel-Lang/lang/refs/heads/main/locales/zh_CN/php.json
+ * @link https://raw.githubusercontent.com/Laravel-Lang/lang/refs/heads/main/locales/zh_CN/php.json
  */
 
 return [
