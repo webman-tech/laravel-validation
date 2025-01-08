@@ -7,7 +7,7 @@
     "php": "^8.2",
     "illuminate/validation": "^11.0"
   },
-  "_comments": [
+  "_comment": [
     "symfony/translation for autodetct locale",
     "illuminate/database for unique rule"
   ],
