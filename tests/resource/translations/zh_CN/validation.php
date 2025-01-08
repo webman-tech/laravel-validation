@@ -131,5 +131,6 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'apples' => '{0} 没有|[1,19] 有一些|[20,*] 有很多',
     ],
 ];

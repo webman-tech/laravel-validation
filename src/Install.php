@@ -9,9 +9,9 @@ class Install
      * @var array
      */
     protected static $pathRelation = array (
-  'config/plugin/webman-tech/laravel-validation' => 'config/plugin/webman-tech/laravel-validation',
-  'resource/translations/en/validation.php' => 'resource/translations/en/validation.php',
-  'resource/translations/zh_CN/validation.php' => 'resource/translations/zh_CN/validation.php',
+  'copy/config/plugin/webman-tech/laravel-validation' => 'config/plugin/webman-tech/laravel-validation',
+  'copy/resource/translations/en/validation.php' => 'resource/translations/en/validation.php',
+  'copy/resource/translations/zh_CN/validation.php' => 'resource/translations/zh_CN/validation.php',
 );
 
     /**
@@ -72,5 +72,5 @@ class Install
             remove_dir($path);
         }
     }
-    
+
 }

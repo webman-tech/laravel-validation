@@ -6,7 +6,7 @@ Laravel [illuminate/validation](https://packagist.org/packages/illuminate/valida
 
 站在巨人（laravel）的肩膀上使验证器使用更加*可靠*和*便捷*
 
-所有方法和配置与 laravel 几乎一模一样，因此使用方式完全参考 [Laravel文档](http://laravel.p2hp.com/cndocs/8.x/validation) 即可
+所有方法和配置与 laravel 几乎一模一样，因此使用方式完全参考 [Laravel文档](https://laravel.com/docs/validation) 即可
 
 ## 安装
 
@@ -123,7 +123,9 @@ class FooController
 
 #### 支持本地化
 
-需要使用 [`webman-tech/laravel-translation`](https://github.com/webman-tech/laravel-translation) 来支持
+> 如果已经安装了 `symfony/translation`(webman 默认支持的)，会自动使用其来支持本地化，可以忽略以下的内容
+
+使用 [`webman-tech/laravel-translation`](https://github.com/webman-tech/laravel-translation) 来支持
 
 安装
 

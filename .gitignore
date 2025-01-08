@@ -3,5 +3,8 @@ vendor
 .idea
 .vscode
 composer.lock
-/phpunit.xml
 .phpunit.cache
+
+# for tests，由于 webman 1.6.9 之后 BASE_PATH 不好调整，因此只能被放到项目级别
+/config
+/resource/translations
