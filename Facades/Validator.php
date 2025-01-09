@@ -7,9 +7,10 @@ use Illuminate\Contracts\Translation\Translator as TranslatorContract;
 use Illuminate\Contracts\Validation\Factory as FactoryContract;
 use Illuminate\Validation\DatabasePresenceVerifier;
 use Illuminate\Validation\DatabasePresenceVerifierInterface;
+use support\bootstrap\LaravelDb;
+use support\Db;
 use Symfony\Component\Translation\Translator as SymfonyTranslator;
 use WebmanTech\LaravelTranslation\Facades\Translator;
-use WebmanTech\LaravelValidation\Database\LaravelDb;
 use WebmanTech\LaravelValidation\Factory;
 use WebmanTech\LaravelValidation\Helper\ConfigHelper;
 use WebmanTech\LaravelValidation\Helper\ExtComponentGetter;
@@ -71,8 +72,11 @@ class Validator
 
     protected static function createDatabasePresenceVerifier(): ?DatabasePresenceVerifierInterface
     {
-        if (class_exists('Illuminate\Database\Capsule\Manager') && LaravelDb::getManagerInstance()) {
-            return new DatabasePresenceVerifier(LaravelDb::getManagerInstance()->getDatabaseManager());
+        if (class_exists('Illuminate\Database\Capsule\Manager')) {
+            if (!Db::getInstance()) {
+                LaravelDb::start(null);
+            }
+            return new DatabasePresenceVerifier(Db::getInstance()->getDatabaseManager());
         }
         return null;
     }
