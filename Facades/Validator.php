@@ -3,13 +3,16 @@
 namespace WebmanTech\LaravelValidation\Facades;
 
 use Illuminate\Container\Container;
-use Illuminate\Contracts\Translation\Translator;
+use Illuminate\Contracts\Translation\Translator as TranslatorContract;
 use Illuminate\Contracts\Validation\Factory as FactoryContract;
 use Illuminate\Validation\DatabasePresenceVerifier;
 use Illuminate\Validation\DatabasePresenceVerifierInterface;
+use Symfony\Component\Translation\Translator as SymfonyTranslator;
+use WebmanTech\LaravelTranslation\Facades\Translator;
 use WebmanTech\LaravelValidation\Database\LaravelDb;
 use WebmanTech\LaravelValidation\Factory;
 use WebmanTech\LaravelValidation\Helper\ConfigHelper;
+use WebmanTech\LaravelValidation\Helper\ExtComponentGetter;
 use WebmanTech\LaravelValidation\Translation\NullTranslator;
 use WebmanTech\LaravelValidation\Translation\WebmanSymfonyTranslator;
 
@@ -34,7 +37,7 @@ use WebmanTech\LaravelValidation\Translation\WebmanSymfonyTranslator;
 class Validator
 {
     protected static ?FactoryContract $_instance = null;
-    protected static ?Translator $_translator = null;
+    protected static ?TranslatorContract $_translator = null;
 
     public static function instance(): FactoryContract
     {
@@ -74,29 +77,14 @@ class Validator
         return null;
     }
 
-    public static function getTranslator(): Translator
+    public static function getTranslator(): TranslatorContract
     {
         if (!static::$_translator) {
-            $translator = ConfigHelper::get('app.translation');
-            if ($translator instanceof \Closure) {
-                $translator = call_user_func($translator);
-            }
-            if (!$translator) {
-                $translator = (function (): Translator {
-                    // laravel-translation
-                    if (class_exists('WebmanTech\LaravelTranslation\Facades\Translator')) {
-                        return \WebmanTech\LaravelTranslation\Facades\Translator::instance();
-                    }
-                    // webman 中使用的 symfony/translation
-                    if (class_exists('Symfony\Component\Translation\Translator')) {
-                        return new WebmanSymfonyTranslator();
-                    }
-
-                    return new NullTranslator();
-                })();
-            }
-
-            static::$_translator = $translator;
+            static::$_translator = ExtComponentGetter::get(TranslatorContract::class, [
+                Translator::class, fn() => Translator::instance(),
+                SymfonyTranslator::class, fn() => new WebmanSymfonyTranslator(),
+                'default' => fn() => new NullTranslator(),
+            ]);
         }
         return static::$_translator;
     }
