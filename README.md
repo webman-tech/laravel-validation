@@ -1,5 +1,7 @@
 # webman-tech/laravel-validation
 
+> Split from [webman-tech/laravel-monorepo](https://github.com/webman-tech/laravel-monorepo)
+
 Laravel [illuminate/validation](https://packagist.org/packages/illuminate/validation) for webman
 
 ## 介绍
