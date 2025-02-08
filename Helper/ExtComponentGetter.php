@@ -7,7 +7,7 @@ use support\Container;
 /**
  * @internal
  */
-class ExtComponentGetter
+final class ExtComponentGetter
 {
     /**
      * @template T of class-string
