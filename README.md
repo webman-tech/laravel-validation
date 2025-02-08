@@ -88,12 +88,12 @@ class FooController
 安装
 
 ```bash
-composer require webman-tech/polyfill illuminate/http
+composer require webman-tech/laravel-http
 ```
 
 使用
 
-```bash
+```php
 <?php
 namespace app\controller;
 
