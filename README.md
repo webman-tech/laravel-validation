@@ -145,8 +145,8 @@ composer require webman-tech/laravel-translation
 
 ### unique 验证器
 
-unique 依赖数据库，本扩展对已经安装 `illuminate/database` 了 webman 应用自动支持
+unique 依赖数据库，本扩展对已经安装 `illuminate/database`(webman < 2.0) 或 `webman/database`(webman >= 2.1) 了 webman 应用自动支持
 
-如果不支持，比如报错：`Presence verifier has not been set.` 时，请手动安装 `illuminate/database`
+如果不支持，比如报错：`Presence verifier has not been set.` 时，请手动安装
 
 > 原则上不一定强依赖于 Laravel 的 database， TP 的应该也是可以的（实现 DatabasePresenceVerifierInterface），目前暂未实现，欢迎PR
