@@ -37,7 +37,6 @@ use WebmanTech\LaravelValidation\Translation\WebmanSymfonyTranslator;
 class Validator
 {
     protected static ?FactoryContract $_instance = null;
-    protected static ?TranslatorContract $_translator = null;
 
     public static function instance(): FactoryContract
     {
@@ -59,7 +58,7 @@ class Validator
     protected static function createFactory(): FactoryContract
     {
         // registerValidationFactory
-        $factory = new Factory(static::getTranslator(), Container::setInstance());
+        $factory = new Factory(static::getTranslator(), Container::getInstance());
         // registerPresenceVerifier
         if ($dbPresence = static::createDatabasePresenceVerifier()) {
             $factory->setPresenceVerifier($dbPresence);
@@ -79,14 +78,7 @@ class Validator
 
     public static function getTranslator(): TranslatorContract
     {
-        if (!static::$_translator) {
-            static::$_translator = ExtComponentGetter::get(TranslatorContract::class, [
-                Translator::class, fn() => Translator::instance(),
-                SymfonyTranslator::class, fn() => new WebmanSymfonyTranslator(),
-                'default' => fn() => new NullTranslator(),
-            ]);
-        }
-        return static::$_translator;
+        return ExtComponentGetter::get(TranslatorContract::class);
     }
 
     /**
