@@ -5,7 +5,7 @@
   "description": "Webman plugin webman-tech/laravel-validation",
   "require": {
     "php": "^8.2",
-    "illuminate/validation": "^11.0"
+    "illuminate/validation": "^12.0"
   },
   "_comment": [
     "symfony/translation for autodetct locale",
