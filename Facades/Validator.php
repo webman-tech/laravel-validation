@@ -5,16 +5,10 @@ namespace WebmanTech\LaravelValidation\Facades;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Translation\Translator as TranslatorContract;
 use Illuminate\Contracts\Validation\Factory as FactoryContract;
-use Illuminate\Validation\DatabasePresenceVerifier;
 use Illuminate\Validation\DatabasePresenceVerifierInterface;
-use Symfony\Component\Translation\Translator as SymfonyTranslator;
-use WebmanTech\LaravelTranslation\Facades\Translator;
 use WebmanTech\LaravelValidation\Factory;
 use WebmanTech\LaravelValidation\Helper\ConfigHelper;
 use WebmanTech\LaravelValidation\Helper\ExtComponentGetter;
-use WebmanTech\LaravelValidation\Mock\LaravelDb;
-use WebmanTech\LaravelValidation\Translation\NullTranslator;
-use WebmanTech\LaravelValidation\Translation\WebmanSymfonyTranslator;
 
 /**
  * @method static \Illuminate\Validation\Validator make(array $data, array $rules, array $messages = [], array $attributes = [])
@@ -37,6 +31,11 @@ use WebmanTech\LaravelValidation\Translation\WebmanSymfonyTranslator;
 class Validator
 {
     protected static ?FactoryContract $_instance = null;
+
+    public static function reset(): void
+    {
+        self::$_instance = null;
+    }
 
     public static function instance(): FactoryContract
     {
@@ -70,10 +69,7 @@ class Validator
 
     protected static function createDatabasePresenceVerifier(): ?DatabasePresenceVerifierInterface
     {
-        if (class_exists('Illuminate\Database\Capsule\Manager') && class_exists('support\Db')) {
-            return new DatabasePresenceVerifier(LaravelDb::getInstance()->getDatabaseManager());
-        }
-        return null;
+        return ExtComponentGetter::get(DatabasePresenceVerifierInterface::class);
     }
 
     public static function getTranslator(): TranslatorContract
