@@ -27,7 +27,7 @@ class NullTranslator implements Translator
      */
     public function getLocale()
     {
-        return null;
+        return '';
     }
 
     /**

@@ -46,9 +46,9 @@ abstract class BaseExtComponentGetter
     }
 
     /**
-     * @template T of class-string|string
-     * @param T $need
-     * @return (T is class-string ? T|null : mixed)
+     * @template T
+     * @param class-string<T> $need
+     * @return T|null
      */
     public static function get(string $need)
     {
@@ -72,6 +72,6 @@ abstract class BaseExtComponentGetter
             self::$components[$id] = $component;
         }
 
-        return $component;
+        return $component === '__NULL__' ? null : $component;
     }
 }
