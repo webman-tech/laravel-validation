@@ -2,7 +2,7 @@
 
 namespace WebmanTech\LaravelValidation\Helper;
 
-use support\Container;
+use WebmanTech\CommonUtils\Container;
 
 /**
  * @internal
@@ -10,11 +10,23 @@ use support\Container;
  */
 abstract class BaseExtComponentGetter
 {
+    /**
+     * @var array<string, array{0: array, 1: \Closure}>
+     */
     private static array $componentsDefine = [];
+    /**
+     * @var array<string, mixed>
+     */
     private static array $components = [];
 
+    /**
+     * @return array<string, array{alias?: string[], singleton?: \Closure}>
+     */
     abstract protected static function getDefine(): array;
 
+    /**
+     * @return array<string, array{0: array, 1: \Closure}>
+     */
     private static function getDefinedComponents(): array
     {
         if (!self::$componentsDefine) {
@@ -46,30 +58,27 @@ abstract class BaseExtComponentGetter
     }
 
     /**
-     * @template T
-     * @param class-string<T> $need
-     * @return T|null
+     * @template TClass of object
+     * @param string|class-string<TClass> $need
+     * @return ($need is class-string<TClass> ? TClass|null : mixed)
      */
-    public static function get(string $need)
+    public static function get(string $need): mixed
     {
         $component = self::$components[$need] ?? null;
-        if ($component) {
-            return $component === '__NULL__' ? null : $component;
-        }
-
-        $componentDefine = self::getDefinedComponents()[$need] ?? null;
-        if ($componentDefine === null) {
-            throw new \InvalidArgumentException($need . ' is not defined');
-        }
-
-        [$ids, $componentGetter] = $componentDefine;
-        $component = $componentGetter();
         if ($component === null) {
-            $component = '__NULL__';
-        }
-        // 将所有相关组件都注册上
-        foreach ($ids as $id) {
-            self::$components[$id] = $component;
+            $componentDefine = self::getDefinedComponents()[$need] ?? null;
+            if ($componentDefine === null) {
+                throw new \InvalidArgumentException($need . ' is not defined');
+            }
+            [$ids, $componentGetter] = $componentDefine;
+            $component = $componentGetter();
+            if ($component === null) {
+                $component = '__NULL__';
+            }
+            // 将所有相关组件都注册上
+            foreach ($ids as $id) {
+                self::$components[$id] = $component;
+            }
         }
 
         return $component === '__NULL__' ? null : $component;

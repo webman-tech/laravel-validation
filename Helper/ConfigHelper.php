@@ -2,6 +2,8 @@
 
 namespace WebmanTech\LaravelValidation\Helper;
 
+use function WebmanTech\CommonUtils\config;
+
 /**
  * @internal
  */
