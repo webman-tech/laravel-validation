@@ -32,12 +32,14 @@ abstract class BaseExtComponentGetter
         if (!self::$componentsDefine) {
             $define = static::getDefine();
 
+            $container = Container::getCurrent();
+
             foreach ($define as $className => $options) {
                 $ids = array_merge([$className], $options['alias'] ?? []);
                 $componentGetter = null;
                 foreach ($ids as $id) {
-                    if (Container::has($id)) {
-                        $componentGetter = fn() => Container::get($id);
+                    if ($container->has($id)) {
+                        $componentGetter = fn() => $container->get($id);
                         break;
                     }
                 }
