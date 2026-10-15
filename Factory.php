@@ -3,6 +3,7 @@
 namespace WebmanTech\LaravelValidation;
 
 use Symfony\Component\Translation\Translator;
+use function WebmanTech\CommonUtils\locale;
 
 class Factory extends \Illuminate\Validation\Factory
 {

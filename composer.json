@@ -9,8 +9,7 @@
     "webman-tech/common-utils": "^5.0 || dev-main"
   },
   "_comment": [
-    "symfony/translation for autodetct locale",
-    "illuminate/database for unique rule"
+    "symfony/translation for autodetct locale"
   ],
   "autoload": {
     "psr-4": {
@@ -22,5 +21,8 @@
   },
   "config": {
     "sort-packages": true
+  },
+  "suggest": {
+    "webman-tech/laravel-database": "使用 unique / exists 验证规则时需要（或向容器绑定 Illuminate\\Database\\ConnectionResolverInterface）"
   }
 }

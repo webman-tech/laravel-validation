@@ -11,7 +11,7 @@ use WebmanTech\CommonUtils\Container;
 abstract class BaseExtComponentGetter
 {
     /**
-     * @var array<string, array{0: array, 1: \Closure}>
+     * @var array<string, array{0: string[], 1: \Closure|null}>
      */
     private static array $componentsDefine = [];
     /**
@@ -25,33 +25,16 @@ abstract class BaseExtComponentGetter
     abstract protected static function getDefine(): array;
 
     /**
-     * @return array<string, array{0: array, 1: \Closure}>
+     * @return array<string, array{0: string[], 1: \Closure|null}>
      */
     private static function getDefinedComponents(): array
     {
         if (!self::$componentsDefine) {
-            $define = static::getDefine();
-
-            $container = Container::getCurrent();
-
-            foreach ($define as $className => $options) {
+            foreach (static::getDefine() as $className => $options) {
                 $ids = array_merge([$className], $options['alias'] ?? []);
-                $componentGetter = null;
+                // 仅缓存解析定义；容器命中与否在 get() 时实时探测（支持宿主后绑）
                 foreach ($ids as $id) {
-                    if ($container->has($id)) {
-                        $componentGetter = fn() => $container->get($id);
-                        break;
-                    }
-                }
-                if ($componentGetter === null) {
-                    $componentGetter = $options['singleton'] ?? null;
-                }
-                if ($componentGetter === null) {
-                    throw new \InvalidArgumentException('cannot find component ' . $className);
-                }
-                // 将所有 id 注册为组件
-                foreach ($ids as $id) {
-                    self::$componentsDefine[$id] = [$ids, $componentGetter];
+                    self::$componentsDefine[$id] = [$ids, $options['singleton'] ?? null];
                 }
             }
         }
@@ -66,14 +49,30 @@ abstract class BaseExtComponentGetter
      */
     public static function get(string $need): mixed
     {
+        $componentDefine = self::getDefinedComponents()[$need] ?? null;
+        if ($componentDefine === null) {
+            throw new \InvalidArgumentException($need . ' is not defined');
+        }
+        [$ids, $closure] = $componentDefine;
+
+        // 容器实时探测优先（has 为轻量数组查询）：宿主绑定永远生效，包括首次访问后才绑定的场景
+        $container = Container::getCurrent();
+        foreach ($ids as $id) {
+            if ($container->has($id)) {
+                return $container->get($id);
+            }
+        }
+
+        // 闭包兜底结果缓存复用（默认实现 singleton 语义）
         $component = self::$components[$need] ?? null;
         if ($component === null) {
-            $componentDefine = self::getDefinedComponents()[$need] ?? null;
-            if ($componentDefine === null) {
-                throw new \InvalidArgumentException($need . ' is not defined');
+            if ($closure === null) {
+                throw new \InvalidArgumentException('cannot find component ' . $need);
             }
-            [$ids, $componentGetter] = $componentDefine;
-            $component = $componentGetter();
+            $component = $closure();
+            if ($component !== null && !$component instanceof $ids[0]) {
+                throw new \RuntimeException(sprintf('%s resolve failed, got %s', $ids[0], get_debug_type($component)));
+            }
             if ($component === null) {
                 $component = '__NULL__';
             }

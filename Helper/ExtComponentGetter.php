@@ -10,8 +10,8 @@ use Illuminate\Validation\DatabasePresenceVerifier;
 use Illuminate\Validation\DatabasePresenceVerifierInterface;
 use Illuminate\Validation\ValidationServiceProvider;
 use Symfony\Component\Translation\Translator as SymfonyTranslator;
+use WebmanTech\LaravelDatabase\Facades\DB;
 use WebmanTech\LaravelTranslation\Facades\Translator;
-use WebmanTech\LaravelValidation\Mock\LaravelDb;
 use WebmanTech\LaravelValidation\Translation\NullTranslator;
 use WebmanTech\LaravelValidation\Translation\WebmanSymfonyTranslator;
 
@@ -39,12 +39,8 @@ final class ExtComponentGetter extends BaseExtComponentGetter
             /** @see DatabaseServiceProvider::registerConnectionServices() */
             ConnectionResolverInterface::class => [
                 'alias' => ['db'],
-                'singleton' => function () {
-                    if (class_exists('Illuminate\Database\Capsule\Manager') && class_exists('support\Db')) {
-                        return LaravelDb::getInstance()->getDatabaseManager();
-                    }
-                    return null;
-                }
+                // laravel-database 为可选依赖，未安装时返回 null（unique 规则使用时才需要）
+                'singleton' => fn() => class_exists(DB::class) ? DB::resolveDefault() : null,
             ],
             /** @see ValidationServiceProvider::registerPresenceVerifier() */
             DatabasePresenceVerifierInterface::class => [
