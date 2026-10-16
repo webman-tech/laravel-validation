@@ -40,7 +40,7 @@ final class ExtComponentGetter extends BaseExtComponentGetter
             ConnectionResolverInterface::class => [
                 'alias' => ['db'],
                 // laravel-database 为可选依赖，未安装时返回 null（unique 规则使用时才需要）
-                'singleton' => fn() => class_exists(DB::class) ? DB::resolveDefault() : null,
+                'singleton' => fn() => class_exists(DB::class) ? DB::getInstance()->getDatabaseManager() : null,
             ],
             /** @see ValidationServiceProvider::registerPresenceVerifier() */
             DatabasePresenceVerifierInterface::class => [
