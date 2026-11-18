@@ -4,8 +4,8 @@
   "license": "MIT",
   "description": "Webman plugin webman-tech/laravel-validation",
   "require": {
-    "php": "^8.2",
-    "illuminate/validation": "^12.0",
+    "php": "^8.3",
+    "illuminate/validation": "^13.0",
     "webman-tech/common-utils": "^5.0 || dev-main"
   },
   "_comment": [
