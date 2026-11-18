@@ -30,6 +30,9 @@ use WebmanTech\LaravelValidation\Helper\ExtComponentGetter;
  */
 class Validator
 {
+    /**
+     * @var null|\Illuminate\Validation\Factory
+     */
     protected static ?FactoryContract $_instance = null;
 
     public static function reset(): void
@@ -37,6 +40,9 @@ class Validator
         self::$_instance = null;
     }
 
+    /**
+     * @return \Illuminate\Validation\Factory
+     */
     public static function instance(): FactoryContract
     {
         if (!static::$_instance) {
@@ -52,7 +58,7 @@ class Validator
 
     /**
      * https://github.com/laravel/framework/blob/11.x/src/Illuminate/Validation/ValidationServiceProvider.php
-     * @return FactoryContract
+     * @return \Illuminate\Validation\Factory
      */
     protected static function createFactory(): FactoryContract
     {

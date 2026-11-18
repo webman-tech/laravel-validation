@@ -2,7 +2,7 @@
 
 > Split from [webman-tech/laravel-monorepo](https://github.com/webman-tech/laravel-monorepo)
 
-适用于 webman 的 Laravel 验证组件，基于 illuminate/validation 实现。
+适用于 webman 与非 webman 环境的 Laravel 验证组件，基于 illuminate/validation 实现。
 
 ## 安装
 
@@ -11,8 +11,6 @@ composer require webman-tech/laravel-validation
 ```
 
 ## 简介
-
-该组件将 Laravel 强大的验证功能引入 webman 框架中，提供了完整的数据验证解决方案。
 
 所有方法和配置与 Laravel 几乎一致，因此使用方式可完全参考 [Laravel Validation 文档](https://laravel.com/docs/validation)。
 
@@ -64,8 +62,9 @@ LaravelRequest::validate([
 
 ### 5. unique 验证器
 
-unique 依赖数据库，本扩展对已经安装 `illuminate/database` 的 webman 应用自动支持。
+unique 依赖数据库，安装 [`webman-tech/laravel-database`](https://github.com/webman-tech/laravel-database) 后自动支持（非
+webman 环境也可向容器绑定 `Illuminate\Database\ConnectionResolverInterface`）。
 
-如果不支持，比如报错：`Presence verifier has not been set.` 时，请手动安装 `illuminate/database`。
+未安装时使用 unique 规则会报错：`Presence verifier has not been set.`
 
 > 原则上不一定强依赖于 Laravel 的 database， TP 的应该也是可以的（实现 DatabasePresenceVerifierInterface），目前暂未实现，欢迎PR
